@@ -1,0 +1,13 @@
+# your own setup and data (created on first run)
+bulbs.json
+scenes.json
+effects_local.json
+app_error.log
+# built by make_shortcut.ps1
+Govee lights.exe
+*.lnk
+# Android bug reports / Bluetooth logs
+*.zip
+btsnoop_hci.log
+__pycache__/
+*.pyc

@@ -1,0 +1,377 @@
+{
+ "note": "Effects for H600D bulbs. 'colors' entries are smooth colour cycles: brightness 1-100, tempo 1 (~5 s a round) ... 255 (~16 s), pace = extra slowdown (235 ~ normal, 208 slow, 176 minutes, below ~128 almost still), optional bulb_brightness sets the bulb when the scene starts. 'Last phone scene' restarts whatever scene data the bulb got last. Scenes you capture yourself go in effects_local.json (see README).",
+ "categories": {
+  "Cyberpunk": [
+   {
+    "name": "Neon Dusk",
+    "colors": [
+     "#6000ff",
+     "#2800c0",
+     "#b000b0"
+    ],
+    "brightness": 40,
+    "tempo": 255,
+    "pace": 208,
+    "about": "deep purple, indigo, magenta (the first one)"
+   },
+   {
+    "name": "Deep Violet",
+    "colors": [
+     "#3a0070",
+     "#5000a0",
+     "#300060"
+    ],
+    "brightness": 25,
+    "tempo": 255,
+    "pace": 176,
+    "about": "very dark violet, barely moving"
+   },
+   {
+    "name": "Night City",
+    "colors": [
+     "#1a0080",
+     "#0040c0",
+     "#0090b0",
+     "#3000a0"
+    ],
+    "brightness": 35,
+    "tempo": 255,
+    "pace": 200,
+    "about": "dark blue with a cyan glint"
+   },
+   {
+    "name": "Synthwave",
+    "colors": [
+     "#c00080",
+     "#ff2070",
+     "#8000c0"
+    ],
+    "brightness": 40,
+    "tempo": 255,
+    "pace": 208,
+    "about": "magenta, hot pink, violet"
+   },
+   {
+    "name": "Vapor Rain",
+    "colors": [
+     "#7050ff",
+     "#d050c0",
+     "#4090ff"
+    ],
+    "brightness": 35,
+    "tempo": 255,
+    "pace": 208,
+    "about": "lavender, pink and sky blue"
+   },
+   {
+    "name": "Red Line",
+    "colors": [
+     "#a00030",
+     "#c00090",
+     "#600080"
+    ],
+    "brightness": 35,
+    "tempo": 255,
+    "pace": 200,
+    "about": "crimson to purple"
+   },
+   {
+    "name": "Ghost Signal",
+    "colors": [
+     "#00a0a0",
+     "#2060c0",
+     "#6020c0"
+    ],
+    "brightness": 30,
+    "tempo": 255,
+    "pace": 192,
+    "about": "teal to violet"
+   },
+   {
+    "name": "Acid Rain",
+    "colors": [
+     "#00a050",
+     "#008080",
+     "#20a020"
+    ],
+    "brightness": 25,
+    "tempo": 255,
+    "pace": 192,
+    "about": "dark green and teal"
+   }
+  ],
+  "Nature": [
+   {
+    "name": "Ocean Deep",
+    "colors": [
+     "#003c78",
+     "#006496",
+     "#00828c",
+     "#002864"
+    ],
+    "brightness": 45,
+    "tempo": 255,
+    "pace": 208,
+    "about": "deep sea blues and teal"
+   },
+   {
+    "name": "Sunrise",
+    "colors": [
+     "#ff6a20",
+     "#ff9a40",
+     "#ffb060",
+     "#ff7a30"
+    ],
+    "brightness": 60,
+    "tempo": 255,
+    "pace": 216,
+    "about": "orange to soft peach"
+   },
+   {
+    "name": "Northern Lights",
+    "colors": [
+     "#00c878",
+     "#00a0a0",
+     "#4060c0",
+     "#00b090"
+    ],
+    "brightness": 45,
+    "tempo": 255,
+    "pace": 208,
+    "about": "green, teal, a touch of blue"
+   },
+   {
+    "name": "Spring Meadow",
+    "colors": [
+     "#60c030",
+     "#a0d040",
+     "#40b050"
+    ],
+    "brightness": 55,
+    "tempo": 255,
+    "pace": 216,
+    "about": "fresh greens"
+   },
+   {
+    "name": "Lavender Field",
+    "colors": [
+     "#9070e0",
+     "#b080f0",
+     "#7060c0"
+    ],
+    "brightness": 45,
+    "tempo": 255,
+    "pace": 208,
+    "about": "soft lavender"
+   },
+   {
+    "name": "Coral Reef",
+    "colors": [
+     "#ff6050",
+     "#ff8a60",
+     "#ff5a78"
+    ],
+    "brightness": 55,
+    "tempo": 255,
+    "pace": 216,
+    "about": "coral and salmon pink"
+   },
+   {
+    "name": "Rainforest",
+    "colors": [
+     "#208040",
+     "#30a050",
+     "#108060"
+    ],
+    "brightness": 40,
+    "tempo": 255,
+    "pace": 200,
+    "about": "deep greens"
+   },
+   {
+    "name": "Desert Dusk",
+    "colors": [
+     "#e06020",
+     "#c04040",
+     "#904060"
+    ],
+    "brightness": 45,
+    "tempo": 255,
+    "pace": 208,
+    "about": "burnt orange to dusky rose"
+   }
+  ],
+  "Cozy": [
+   {
+    "name": "Candlelight",
+    "colors": [
+     "#ff7a1e",
+     "#ff8c28",
+     "#ff6a14"
+    ],
+    "brightness": 40,
+    "tempo": 200,
+    "pace": 224,
+    "about": "warm candle glow, gently alive"
+   },
+   {
+    "name": "Fireplace Glow",
+    "colors": [
+     "#ff5000",
+     "#ff7010",
+     "#e04000"
+    ],
+    "brightness": 50,
+    "tempo": 120,
+    "pace": 235,
+    "about": "embers, a bit livelier"
+   },
+   {
+    "name": "Warm Amber",
+    "colors": [
+     "#ffa040",
+     "#ff9030",
+     "#ffb050"
+    ],
+    "brightness": 55,
+    "tempo": 255,
+    "pace": 200,
+    "about": "amber, barely moving"
+   },
+   {
+    "name": "Honey",
+    "colors": [
+     "#ffb030",
+     "#ffc040",
+     "#ff9a20"
+    ],
+    "brightness": 60,
+    "tempo": 255,
+    "pace": 208,
+    "about": "golden honey tones"
+   }
+  ],
+  "Calm": [
+   {
+    "name": "Lullaby",
+    "colors": [
+     "#1c0300",
+     "#180300",
+     "#140200",
+     "#180300"
+    ],
+    "brightness": 15,
+    "tempo": 255,
+    "pace": 255,
+    "bulb_brightness": 1,
+    "about": "barely-there dark red glow with tiny changes, for falling asleep; sets the bulb to 1%"
+   },
+   {
+    "name": "Moonlit",
+    "colors": [
+     "#4060c0",
+     "#6080e0",
+     "#5070b0"
+    ],
+    "brightness": 30,
+    "tempo": 255,
+    "pace": 200,
+    "about": "cool moonlight blue"
+   },
+   {
+    "name": "Misty Morning",
+    "colors": [
+     "#a0c0d0",
+     "#c0d0e0",
+     "#90b0c8"
+    ],
+    "brightness": 45,
+    "tempo": 255,
+    "pace": 200,
+    "about": "pale misty blue-grey"
+   },
+   {
+    "name": "Zen Garden",
+    "colors": [
+     "#80c0a0",
+     "#a0d0b0",
+     "#70b090"
+    ],
+    "brightness": 40,
+    "tempo": 255,
+    "pace": 192,
+    "about": "soft sage green"
+   },
+   {
+    "name": "Sleepy",
+    "colors": [
+     "#ff6020",
+     "#c04010"
+    ],
+    "brightness": 15,
+    "tempo": 255,
+    "pace": 176,
+    "about": "very dim warm night light"
+   }
+  ],
+  "Soft party": [
+   {
+    "name": "Rainbow Drift",
+    "colors": [
+     "#ff0000",
+     "#ffa000",
+     "#ffff00",
+     "#00ff00",
+     "#00a0ff",
+     "#8000ff"
+    ],
+    "brightness": 60,
+    "tempo": 255,
+    "pace": 235,
+    "about": "the whole rainbow, slowly"
+   },
+   {
+    "name": "Cotton Candy",
+    "colors": [
+     "#ff80c0",
+     "#c0a0ff",
+     "#80c0ff"
+    ],
+    "brightness": 55,
+    "tempo": 255,
+    "pace": 216,
+    "about": "pink, lilac, baby blue"
+   },
+   {
+    "name": "Tropical",
+    "colors": [
+     "#ff8030",
+     "#ffd040",
+     "#ff5070"
+    ],
+    "brightness": 60,
+    "tempo": 150,
+    "pace": 235,
+    "about": "mango, pineapple, guava; a bit quicker"
+   },
+   {
+    "name": "Lagoon",
+    "colors": [
+     "#00c0c0",
+     "#00a0ff",
+     "#00e0a0"
+    ],
+    "brightness": 55,
+    "tempo": 150,
+    "pace": 235,
+    "about": "turquoise water; a bit quicker"
+   }
+  ],
+  "Phone": [
+   {
+    "name": "Last phone scene",
+    "code": 8217
+   }
+  ]
+ }
+}
