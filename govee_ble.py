@@ -168,6 +168,8 @@ class _Link:
 class BleTransport:
     OFFLINE_AFTER = 2  # failed connection attempts in a row: show the bulb as off / out of range
     KEEPALIVE_EVERY = 2.5  # seconds; bulbs drop idle links after ~12 s
+    REFRESH_EVERY = 30.0  # seconds between "device not found" scans
+    REFRESH_SCAN = 4.0  # seconds a refresh scan listens
     CONNECT_TIMEOUT = 25.0  # alone ~8 s for the weakest bulb; Windows queues parallel connects (up to ~25 s)
 
     def __init__(self, keepalive: bool = False):
@@ -176,6 +178,8 @@ class BleTransport:
         self.links: dict[str, _Link] = {}
         self.seen: dict[str, dict] = {}  # address -> {"name", "rssi", "t"} from discovery scans
         self.watch: set[str] = set()  # addresses kept connected (desktop app)
+        self.scan_lock: asyncio.Lock | None = None  # created on the Bluetooth thread's loop
+        self.last_refresh = 0.0
         if keepalive:
             self._call_soon(self._keepalive_loop())
             self._call_soon(self._reconnect_loop())
@@ -198,22 +202,45 @@ class BleTransport:
         async with link.connect_lock:
             if link.connected:
                 return True
-            dev = BLEDevice(link.address, None, _Raw(_Adv(int(link.address.replace(":", ""), 16)), None))
-            client = BleakClient(dev, timeout=self.CONNECT_TIMEOUT, winrt={"use_cached_services": True},
-                                 disconnected_callback=lambda _c: link.lost())
+            if await self._connect_once(link) is True:
+                return True
+            if "DeviceNotFound" in link.error and await self._refresh_devices():
+                return await self._connect_once(link) is True  # Windows knows the bulbs again
+            return False
+
+    async def _refresh_devices(self) -> bool:
+        """Windows forgets a Bluetooth LE device it has not seen for a while; connecting by address then
+        fails at once with "device not found", even though the bulb is on and advertising (seen after the
+        window ran for hours). A short scan makes Windows see the bulbs again. At most every 30 s."""
+        if self.scan_lock is None:
+            self.scan_lock = asyncio.Lock()
+        async with self.scan_lock:
+            if time.monotonic() - self.last_refresh < self.REFRESH_EVERY:
+                return True  # a scan just ran (maybe for another bulb that waited here): try again
+                # once; a bulb that is really off fails again in ~0.1 s
+            self.last_refresh = time.monotonic()
             try:
-                await client.connect()
-                await client.start_notify(NOTIFY_UUID, link.on_notify)
-            except Exception as e:  # noqa: BLE001 - any Bluetooth failure means "not reachable now"
-                link.error = NOT_FOUND if isinstance(e, (TimeoutError, asyncio.TimeoutError)) \
-                    else f"connection failed ({type(e).__name__}: {e})"
-                try:
-                    await client.disconnect()
-                except Exception:  # noqa: BLE001
-                    pass
+                await self._scan(self.REFRESH_SCAN)
+            except Exception:  # noqa: BLE001 - radio busy or off
                 return False
-            link.client, link.error, link.fails, link.sent_param = client, "", 0, False
             return True
+
+    async def _connect_once(self, link: _Link) -> bool:
+        dev = BLEDevice(link.address, None, _Raw(_Adv(int(link.address.replace(":", ""), 16)), None))
+        client = BleakClient(dev, timeout=self.CONNECT_TIMEOUT, winrt={"use_cached_services": True},
+                             disconnected_callback=lambda _c: link.lost())
+        try:
+            await client.connect()
+            await client.start_notify(NOTIFY_UUID, link.on_notify)
+        except Exception as e:  # noqa: BLE001 - any Bluetooth failure means "not reachable now"
+            link.error = NOT_FOUND if isinstance(e, (TimeoutError, asyncio.TimeoutError))                 else f"connection failed ({type(e).__name__}: {e})"
+            try:
+                await client.disconnect()
+            except Exception:  # noqa: BLE001
+                pass
+            return False
+        link.client, link.error, link.fails, link.sent_param = client, "", 0, False
+        return True
 
     async def _ready(self, link: _Link, connect: bool) -> bool:
         return link.connected or (connect and await self._connect(link))

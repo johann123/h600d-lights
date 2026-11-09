@@ -30,4 +30,7 @@ setup.control(target="Up right", kelvin=2700, brightness=60)
 setup.control(target="Up left", on=False)
 if "--offline" in sys.argv:
     list(fake.bulbs.values())[3].reachable = False  # show how an out-of-range bulb looks
+if "--all-offline" in sys.argv:
+    for b in fake.bulbs.values():
+        b.reachable = False
 app.main(lights.Lights(transport=fake, live=True))

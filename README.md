@@ -154,7 +154,9 @@ Smooth colour-cycle scene data, worked out by testing:
 are layered (per layer roughly `ff <pace> <brightness> <tempo> 00 <R G B>`); they are replayed as captured.
 
 Other observations: an idle connection drops after about 12 s, so the window reads the bulbs every
-2.5 s; Windows connects most reliably by address with cached services, without scanning first.
+2.5 s; Windows connects most reliably by address with cached services, without scanning first, but
+it forgets a device it has not seen for a while (connecting then fails at once with "device not
+found"), so after such a failure the program scans for 4 s (at most every 30 s) and tries again.
 
 ## License
 

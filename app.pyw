@@ -164,7 +164,7 @@ class Loader:
             self.hint.place_forget()
         if action:
             self.button.configure(command=action)
-            self.button.place(relx=0.5, rely=0.36, y=px(22) + px(78), anchor="center")
+            self.button.place(relx=0.5, rely=0.36, y=px(22) + (px(78) if hint else px(46)), anchor="center")
         else:
             self.button.place_forget()
         self._place()
@@ -386,8 +386,8 @@ class Card:
                                           + (f" · {off} off" if off else ""))
                 if up == 0 and off == n:
                     self.loader.show("switched off or out of range", bad=False, title=self.title_text, spin=False,
-                                     hint="they reconnect by themselves when they are back",
-                                     action=lambda: self.app.reconnect(self.target, self.title_text))
+                                     action=lambda: self.app.reconnect(self.target, self.title_text))  # no hint:
+                    # a group card is shorter than a bulb card, the button would be cut off
                 elif up == 0:
                     self.loader.show(f"connecting… 0/{n}", bad=False, title=self.title_text)
                 else:
